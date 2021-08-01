@@ -103,5 +103,40 @@ public class BookDAO {
 		}
 		return b;
 	}
+	public List<Book> getBookByUserID(int id){
+		List<Book> list = new ArrayList<Book>();
+		String query = "select * from book as b join ref as r on r.book_id = b.id where r.user_id = ?";
+		PreparedStatement pst;
+		ResultSet rs;
+		try {
+			pst = con.prepareStatement(query);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			while(rs.next()) {
+				Book b = new Book();
+				b.setId(rs.getInt("id"));
+				b.setTitle(rs.getString("title"));
+				b.setAuthor(rs.getString("author"));
+				b.setCategory(rs.getString("category"));
+				list.add(b);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return list;
+	}
+	
+	public void addListBook(int book_id, int user_id) {
+		String query = "insert into ref values (?,?)";
+		PreparedStatement pst;
+		try {
+			pst = con.prepareStatement(query);
+			pst.setInt(1,book_id);
+			pst.setInt(2,user_id);
+			pst.execute();	
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 	
 }

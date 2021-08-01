@@ -7,44 +7,30 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>User</title>
+<title>List User's Book</title>
 </head>
 <body>
 	<div>
 		<div>
-			<h1>List Users</h1>
+			<h1>List User's Book</h1>
 			<hr>
-			<div>
-
-				<a href="adduser.jsp">Add New User</a>
-			</div>
 			<br>
 			<table border="1">
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>Email</th>
-						<th>DOB</th>
-						<th>Age</th>
-						<th>Actions</th>
+						<th>Title</th>
+						<th>Author</th>
+						<th>Category</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${list}" var="l">
 						<tr>
 							<td>${l.id}</td>
-							<td>${l.firstName}</td>
-							<td>${l.lastName}</td>
-							<td>${l.email}</td>
-							<td>${l.dob}</td>
-							<td>${l.age}</td>
-							<td>
-								<a href="updateuser?id=${l.id}">Update</a>
-								<a href="listbook?id=${l.id}">ListBook</a>
-								<a href="addlistbook?id=${l.id}">AddBook</a>
-							</td>
+							<td>${l.title}</td>
+							<td>${l.author}</td>
+							<td>${l.category}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -52,5 +38,4 @@
 			</table>
 		</div>
 	</div>
-</body>
-</html>
+</body></html>
