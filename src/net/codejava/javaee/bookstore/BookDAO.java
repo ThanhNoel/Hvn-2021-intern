@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale.Category;
  
 /**
  * AbstractDAO.java
@@ -46,13 +47,13 @@ public class BookDAO {
     }
      
     public boolean insertBook(Book book) throws SQLException {
-        String sql = "INSERT INTO book (title, author, price) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO book (title, author, category) VALUES (?, ?, ?)";
         connect();
          
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         statement.setString(1, book.getTitle());
         statement.setString(2, book.getAuthor());
-        statement.setFloat(3, book.getPrice());
+        statement.setString(3, book.getCategory());
          
         boolean rowInserted = statement.executeUpdate() > 0;
         statement.close();
@@ -74,9 +75,9 @@ public class BookDAO {
             int id = resultSet.getInt("book_id");
             String title = resultSet.getString("title");
             String author = resultSet.getString("author");
-            float price = resultSet.getFloat("price");
+            String category = resultSet.getString("category");
              
-            Book book = new Book(id, title, author, price);
+            Book book = new Book(id, title, author, category);
             listBook.add(book);
         }
          
@@ -103,14 +104,14 @@ public class BookDAO {
     }
      
     public boolean updateBook(Book book) throws SQLException {
-        String sql = "UPDATE book SET title = ?, author = ?, price = ?";
+        String sql = "UPDATE book SET title = ?, author = ?, category = ?";
         sql += " WHERE book_id = ?";
         connect();
          
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         statement.setString(1, book.getTitle());
         statement.setString(2, book.getAuthor());
-        statement.setFloat(3, book.getPrice());
+        statement.setString(3, book.getCategory());
         statement.setInt(4, book.getId());
          
         boolean rowUpdated = statement.executeUpdate() > 0;
@@ -133,9 +134,9 @@ public class BookDAO {
         if (resultSet.next()) {
             String title = resultSet.getString("title");
             String author = resultSet.getString("author");
-            float price = resultSet.getFloat("price");
+            String category = resultSet.getString("category");
              
-            book = new Book(id, title, author, price);
+            book = new Book(id, title, author, category);
         }
          
         resultSet.close();

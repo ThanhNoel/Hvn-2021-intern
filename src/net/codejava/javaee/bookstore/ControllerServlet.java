@@ -92,9 +92,9 @@ public class ControllerServlet extends HttpServlet {
             throws SQLException, IOException {
         String title = request.getParameter("title");
         String author = request.getParameter("author");
-        float price = Float.parseFloat(request.getParameter("price"));
+        String category = request.getParameter("category");
  
-        Book newBook = new Book(title, author, price);
+        Book newBook = new Book(title, author, category);
         bookDAO.insertBook(newBook);
         response.sendRedirect("list");
     }
@@ -104,9 +104,9 @@ public class ControllerServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         String title = request.getParameter("title");
         String author = request.getParameter("author");
-        float price = Float.parseFloat(request.getParameter("price"));
+        String category = request.getParameter("category");
  
-        Book book = new Book(id, title, author, price);
+        Book book = new Book(id, title, author, category);
         bookDAO.updateBook(book);
         response.sendRedirect("list");
     }

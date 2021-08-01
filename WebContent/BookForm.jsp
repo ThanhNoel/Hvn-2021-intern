@@ -30,7 +30,7 @@
                     </c:if>
                     <c:if test="${book == null}">
                         Add New Book
-                    </c:if>
+                     </c:if>
                 </h2>
             </caption>
                 <c:if test="${book != null}">
@@ -53,10 +53,10 @@
                 </td>
             </tr>
             <tr>
-                <th>Price: </th>
+                <th>Category: </th>
                 <td>
-                    <input type="text" name="price" size="5"
-                            value="<c:out value='${book.price}' />"
+                    <input type="text" name="category" size="45"
+                            value="<c:out value='${book.category}' />"
                     />
                 </td>
             </tr>

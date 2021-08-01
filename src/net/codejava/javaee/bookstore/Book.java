@@ -10,7 +10,7 @@ public class Book {
     protected int id;
     protected String title;
     protected String author;
-    protected float price;
+    protected String category;
  
     public Book() {
     }
@@ -19,15 +19,15 @@ public class Book {
         this.id = id;
     }
  
-    public Book(int id, String title, String author, float price) {
-        this(title, author, price);
+    public Book(int id, String title, String author, String category) {
+        this(title, author, category);
         this.id = id;
     }
      
-    public Book(String title, String author, float price) {
+    public Book(String title, String author, String category) {
         this.title = title;
         this.author = author;
-        this.price = price;
+        this.category = category;
     }
  
     public int getId() {
@@ -53,12 +53,14 @@ public class Book {
     public void setAuthor(String author) {
         this.author = author;
     }
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
  
-    public float getPrice() {
-        return price;
-    }
- 
-    public void setPrice(float price) {
-        this.price = price;
-    }
+    
 }
