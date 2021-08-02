@@ -9,18 +9,19 @@
     <center>
         <h1>Books Management</h1>
         <h2>
-            <a href="new">Add New Book</a>
+            <a href="newBook">Add New Book</a>
             &nbsp;&nbsp;&nbsp;
-            <a href="list">List All Books</a>
-             
+            <a href="listBook">List All Books</a>
+             &nbsp;&nbsp;&nbsp;
+            <a href="listUser">User Management</a>
         </h2>
     </center>
     <div align="center">
         <c:if test="${book != null}">
-            <form action="update" method="post">
+            <form action="updateBook" method="post">
         </c:if>
         <c:if test="${book == null}">
-            <form action="insert" method="post">
+            <form action="insertBook" method="post">
         </c:if>
         <table border="1" cellpadding="5">
             <caption>

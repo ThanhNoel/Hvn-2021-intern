@@ -9,10 +9,11 @@
     <center>
         <h1>Books Management</h1>
         <h2>
-            <a href="new">Add New Book</a>
+            <a href="newBook">Add New Book</a>
             &nbsp;&nbsp;&nbsp;
-            <a href="list">List All Books</a>
-             
+            <a href="listBook">List All Books</a>
+              &nbsp;&nbsp;&nbsp;
+            <a href="listUser">User Management</a>
         </h2>
     </center>
     <div align="center">
@@ -32,9 +33,9 @@
                     <td><c:out value="${book.author}" /></td>
                     <td><c:out value="${book.category}" /></td>
                     <td>
-                        <a href="edit?id=<c:out value='${book.id}' />">Edit</a>
+                        <a href="editBook?id=<c:out value='${book.id}' />">Edit</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="delete?id=<c:out value='${book.id}' />">Delete</a>                     
+                        <a href="deleteBook?id=<c:out value='${book.id}' />">Delete</a>                     
                     </td>
                 </tr>
             </c:forEach>
