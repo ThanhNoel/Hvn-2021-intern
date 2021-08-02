@@ -39,7 +39,7 @@ public class BookDAO extends GenericDAO {
 	}
 
 	public void addBook(Book book) {
-		String sql = "INSERT INTO thuc_tap.book(title,author,category,idBook) VALUES(?,?,?)";
+		String sql = "INSERT INTO thuc_tap.book(title,author,category) VALUES(?,?,?)";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, book.getTitle());
@@ -152,7 +152,7 @@ public class BookDAO extends GenericDAO {
 			ps.setInt(1, key);
 			ResultSet rs = ps.executeQuery();
 
-			if (rs.next()) {
+			while (rs.next()) {
 				Book book =new Book();
 				book.setIdBook(rs.getInt("idBook"));
 				book.setTitle(rs.getString("title"));

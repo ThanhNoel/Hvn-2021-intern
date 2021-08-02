@@ -1,7 +1,6 @@
 package com.nashtech.intern.model;
 
 import java.util.Date;
-import java.util.List;
 
 public class User {
 
@@ -11,22 +10,10 @@ public class User {
 	private int age;
 	private Date dateOfBirth;
 	private String email;
-	private List<Book> listBook;
 	
 	public User() {
 	}
 
-	public User(int idUser, String firstName, String lastName, int age, Date dateOfBirth, String email,
-			List<Book> listBook) {
-		super();
-		IdUser = idUser;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.age = age;
-		this.dateOfBirth = dateOfBirth;
-		this.email = email;
-		this.listBook = listBook;
-	}
 
 	public User(int idUser, String firstName, String lastName, int age, Date dateOfBirth, String email) {
 		super();
@@ -85,14 +72,5 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public List<Book> getListBook() {
-		return listBook;
-	}
-
-	public void setListBook(List<Book> listBook) {
-		this.listBook = listBook;
-	}
-
 	
 }
