@@ -44,8 +44,11 @@ public class AddBookServlet extends HttpServlet {
 		String author = request.getParameter("author");
 		String category = request.getParameter("category");
 		Book b = new Book(title,author,category);
-		bookDAO.addBook(b);
-		response.sendRedirect("book");
+		if(b.checkBook(b.getTitle()) && b.checkBook(b.getAuthor())) {
+			bookDAO.addBook(b);
+			response.sendRedirect("book");
+		}
+		else response.sendRedirect("addbook.jsp");
 	}
 
 }

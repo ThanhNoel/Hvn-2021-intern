@@ -56,8 +56,11 @@ public class AddUserServlet extends HttpServlet {
 		}
 		java.sql.Date sql = new java.sql.Date(dob.getTime());
 		User user = new User(firstName,lastName,email,sql,0);
-		userDAO.addUser(user);
-		response.sendRedirect("user");
+		if(user.checkUserName(user.getFirstName()) && user.checkUserName(user.getLastName()) && user.checkAge(user.getAge()) && user.checkUserEmail(user.getEmail())) {
+			userDAO.addUser(user);
+			response.sendRedirect("user");
+		}
+		else response.sendRedirect("adduser.jsp");
 	}
 
 }

@@ -61,8 +61,12 @@ public class UpdateUserServlet extends HttpServlet {
 		java.sql.Date sql = new java.sql.Date(dob.getTime());
 		java.sql.Date now = new java.sql.Date(System.currentTimeMillis());
 		int tmp = now.getYear() - sql.getYear() ; 
-		userDAO.updateUser(firstName,lastName,email,sql,tmp,id);
-		response.sendRedirect("user");
+		User user = new User(firstName,lastName,email,sql,0);
+		if(user.checkUserName(user.getFirstName()) && user.checkUserName(user.getLastName()) && user.checkAge(user.getAge()) && user.checkUserEmail(user.getEmail())) {
+			userDAO.updateUser(firstName,lastName,email,sql,tmp,id);
+			response.sendRedirect("user");
+		}
+		else doGet(request,response);
 	}
 
 }

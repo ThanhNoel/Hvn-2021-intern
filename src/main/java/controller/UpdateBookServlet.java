@@ -48,8 +48,12 @@ public class UpdateBookServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String author = request.getParameter("author");
 		String category = request.getParameter("category");
-		bookDAO.updateBook(id,title,author,category);
-		response.sendRedirect("book");
+		Book b = new Book(title,author,category);
+		if(b.checkBook(b.getTitle()) && b.checkBook(b.getAuthor())) {
+			bookDAO.updateBook(id,title,author,category);
+			response.sendRedirect("book");
+		}
+		else doGet(request,response);
 	}
 
 }

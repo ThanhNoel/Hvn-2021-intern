@@ -1,9 +1,9 @@
 package model;
 
 import java.sql.Date;
-import java.util.List;
 
-public class User {
+
+public class User{
 	private int id;
 	
 	private String firstName;
@@ -29,9 +29,11 @@ public class User {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public String getFirstName() {
 		return firstName;
 	}
+	
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
@@ -69,6 +71,14 @@ public class User {
 				+ dob + ", age=" + age + "]";
 	}
 	
-	
-	
+	public boolean checkUserName(String str) {
+		return ((!str.equals(""))&& (str != null)&& (str.matches("^[a-zA-Z]*$")));
+	}
+	public boolean checkUserEmail(String str) {
+		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+	    return str.matches(regex);
+	}
+	public boolean checkAge(int a) {
+		return a>0 && a<=120;
+	}
 }

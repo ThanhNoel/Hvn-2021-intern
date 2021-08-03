@@ -39,5 +39,7 @@ public class Book {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
+	public boolean checkBook(String str) {
+		return str.length()>0 && str.length()<100;
+	}
 }
