@@ -45,7 +45,7 @@ public class UserDAO {
 
 //---------------------------------------------------
 	public User checkLogin(String email, String password) throws SQLException, ClassNotFoundException {
-		// this is a bug,I don't understand why I can't user "connect()"
+		// this is a bug,I don't understand why I can't use "connect()"
 		String jdbcURL = "jdbc:mysql://localhost:3306/bookstore";
 		String jdbcUsername = "root";
 		String jdbcPassword = "030699";
@@ -53,7 +53,7 @@ public class UserDAO {
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection jdbcConnection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
 
-		User user = null;
+		User user = new User();
 		String sql = "SELECT * FROM user WHERE email = ? and password = ?";
 		// connect();
 
@@ -63,9 +63,16 @@ public class UserDAO {
 
 		ResultSet resultSet = statement.executeQuery();
 		if (resultSet.next()) {
-			user = new User();
-			user.setName(resultSet.getString("name"));
-			user.setEmail(email);
+	        
+			
+	        user.setId(resultSet.getInt(1));
+	        user.setName(resultSet.getString(2));
+	        user.setEmail(resultSet.getString(3));
+	        user.setAge(resultSet.getInt(4));
+	        user.setDate(resultSet.getString(5));
+	        user.setPassword(resultSet.getString(6));
+	        user.setRole(resultSet.getString(7));
+	
 		}
 
 		resultSet.close();
@@ -73,6 +80,9 @@ public class UserDAO {
 
 		return user;
 	}
+	
+	
+	
 	public boolean insertRegisteredUser(User user) throws SQLException {
 		String sql = "INSERT INTO user (name, email, age, date, password) VALUES (?, ?, ?, ?, ?)";
 		connect();
@@ -192,5 +202,44 @@ public class UserDAO {
 		statement.close();
 
 		return user;
+	}
+	
+	//---------------------------------------------------
+	public User authenticateUser(User user) throws SQLException, ClassNotFoundException{
+		
+		String jdbcURL = "jdbc:mysql://localhost:3306/bookstore";
+		String jdbcUsername = "root";
+		String jdbcPassword = "030699";
+
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection Connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+		
+	
+		String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
+
+	   
+		PreparedStatement statement = Connection.prepareStatement(sql);
+		statement.setString(1, user.getEmail());
+		statement.setNString(2, user.getPassword());
+		ResultSet resultSet = statement.executeQuery();
+		
+
+		 if (resultSet.next()){
+		        
+		        User u = new User();
+		        u.setId(resultSet.getInt(0));
+		        u.setName(resultSet.getString(1));
+		        u.setEmail(resultSet.getString(2));
+		        u.setAge(resultSet.getInt(3));
+		        u.setDate(resultSet.getString(4));
+		        u.setPassword(resultSet.getString(5));
+		        u.setRole(resultSet.getString(6));
+		        
+		        return u;
+		 }
+		 
+		 resultSet.close();
+		 statement.close();
+		 return null;
 	}
 }

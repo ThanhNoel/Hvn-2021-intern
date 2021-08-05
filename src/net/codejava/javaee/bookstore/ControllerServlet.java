@@ -50,7 +50,7 @@ public class ControllerServlet extends HttpServlet {
 				break;
 			case "/insertRegisteredUser":
 				insertRegisteredUser(request, response);
-				break;	
+				break;
 			case "/newUser":
 				showNewUserForm(request, response);
 				break;
@@ -92,51 +92,59 @@ public class ControllerServlet extends HttpServlet {
 				login(request, response);
 				break;
 			}
-		} catch (SQLException ex) {
+		} catch (SQLException | ClassNotFoundException ex) {
 			throw new ServletException(ex);
 		}
 	}
 
 	private void login(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException, ServletException {
+			throws SQLException, IOException, ServletException, ClassNotFoundException {
 
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 
 		UserDAO userDao = new UserDAO();
 
-		try {
-			User user = userDao.checkLogin(email, password);
-			String destPage = "Login.jsp";
+		User user = userDao.checkLogin(email, password);
 
-			if (user != null) {
-				HttpSession session = request.getSession();
-				session.setAttribute("user", user);
-				destPage = "BookList.jsp";
-			} else {
-				String message = "Invalid email/password";
-				request.setAttribute("message", message);
-			}
+		if (user.getRole().equals("admin")) {
+			HttpSession session = request.getSession();
+			session.setAttribute("user", user);
+			System.out.println("admin");
+			listBook(request, response);
+			
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
-			dispatcher.forward(request, response);
+		} else if (user.getRole().equals("reader")) {
+			HttpSession session = request.getSession();
+			session.setAttribute("user", user);
+			System.out.println("reader");
+			home(request, response);
 
-		} catch (SQLException | ClassNotFoundException ex) {
-			throw new ServletException(ex);
+		} else {
+			String message = "Invalid email/password";
+			request.setAttribute("message", message);
+			System.out.println("inavlid");
 		}
+//
+//		RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
+//		dispatcher.forward(request, response);
+
 	}
 
-	private void home(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
+	private void home(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Home.jsp");
 		dispatcher.forward(request, response);
-	}  
-	
-	private void register(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+	}
+
+	private void register(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Register.jsp");
 		dispatcher.forward(request, response);
-	} 
-	
-	private void insertRegisteredUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+	}
+
+	private void insertRegisteredUser(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException {
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		int age = Integer.parseInt(request.getParameter("age"));
@@ -147,7 +155,7 @@ public class ControllerServlet extends HttpServlet {
 		userDAO.insertRegisteredUser(newUser);
 		response.sendRedirect("listUser");
 	}
-	
+
 	private void listBook(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		List<Book> listBook = bookDAO.listAllBooks();
@@ -215,7 +223,7 @@ public class ControllerServlet extends HttpServlet {
 			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("UserForm.jsp");
 		dispatcher.forward(request, response);
-		
+
 	}
 
 	private void showEditUserForm(HttpServletRequest request, HttpServletResponse response)
@@ -233,8 +241,7 @@ public class ControllerServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		int age = Integer.parseInt(request.getParameter("age"));
 		String date = request.getParameter("date");
-	
-		
+
 		User newUser = new User(name, email, age, date);
 		userDAO.insertUser(newUser);
 		response.sendRedirect("listUser");

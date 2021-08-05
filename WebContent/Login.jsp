@@ -10,7 +10,7 @@
 <body>
 	<div style="text-align: center">
 		<h1>Login</h1>
-		<form action="Login" method="post">
+		<form action="login" method="post">
 			<label for="email">Email:</label> <input name="email" size="30" /> <br>
 			<br> <label for="password">Password:</label> <input
 				type="password" name="password" size="30" /> <br>${message} <br>
