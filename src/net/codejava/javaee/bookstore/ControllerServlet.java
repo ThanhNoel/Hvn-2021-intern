@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * ControllerServlet.java This servlet acts as a page controller for the
@@ -27,7 +28,7 @@ public class ControllerServlet extends HttpServlet {
 		String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
 
 		bookDAO = new BookDAO(jdbcURL, jdbcUsername, jdbcPassword);
-        userDAO = new UserDAO(jdbcURL, jdbcUsername, jdbcPassword);
+		userDAO = new UserDAO(jdbcURL, jdbcUsername, jdbcPassword);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -41,6 +42,15 @@ public class ControllerServlet extends HttpServlet {
 
 		try {
 			switch (action) {
+			case "/home":
+				home(request, response);
+				break;
+			case "/register":
+				register(request, response);
+				break;
+			case "/insertRegisteredUser":
+				insertRegisteredUser(request, response);
+				break;	
 			case "/newUser":
 				showNewUserForm(request, response);
 				break;
@@ -59,7 +69,7 @@ public class ControllerServlet extends HttpServlet {
 			case "/updateUser":
 				updateUser(request, response);
 				break;
-	//---------------------------------------------
+			// ---------------------------------------------
 			case "/newBook":
 				showNewBookForm(request, response);
 				break;
@@ -75,8 +85,11 @@ public class ControllerServlet extends HttpServlet {
 			case "/updateBook":
 				updateBook(request, response);
 				break;
-			default:
+			case "/listBook":
 				listBook(request, response);
+				break;
+			default:
+				login(request, response);
 				break;
 			}
 		} catch (SQLException ex) {
@@ -84,6 +97,57 @@ public class ControllerServlet extends HttpServlet {
 		}
 	}
 
+	private void login(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+
+		UserDAO userDao = new UserDAO();
+
+		try {
+			User user = userDao.checkLogin(email, password);
+			String destPage = "Login.jsp";
+
+			if (user != null) {
+				HttpSession session = request.getSession();
+				session.setAttribute("user", user);
+				destPage = "BookList.jsp";
+			} else {
+				String message = "Invalid email/password";
+				request.setAttribute("message", message);
+			}
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
+			dispatcher.forward(request, response);
+
+		} catch (SQLException | ClassNotFoundException ex) {
+			throw new ServletException(ex);
+		}
+	}
+
+	private void home(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
+		dispatcher.forward(request, response);
+	}  
+	
+	private void register(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Register.jsp");
+		dispatcher.forward(request, response);
+	} 
+	
+	private void insertRegisteredUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		int age = Integer.parseInt(request.getParameter("age"));
+		String date = request.getParameter("date");
+		String password = request.getParameter("password");
+
+		User newUser = new User(name, email, age, date, password);
+		userDAO.insertRegisteredUser(newUser);
+		response.sendRedirect("listUser");
+	}
+	
 	private void listBook(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		List<Book> listBook = bookDAO.listAllBooks();
@@ -115,7 +179,7 @@ public class ControllerServlet extends HttpServlet {
 
 		Book newBook = new Book(title, author, category);
 		bookDAO.insertBook(newBook);
-		response.sendRedirect("list");
+		response.sendRedirect("listBook");
 	}
 
 	private void updateBook(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
@@ -126,7 +190,7 @@ public class ControllerServlet extends HttpServlet {
 
 		Book book = new Book(id, title, author, category);
 		bookDAO.updateBook(book);
-		response.sendRedirect("list");
+		response.sendRedirect("listBook");
 	}
 
 	private void deleteBook(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
@@ -134,7 +198,7 @@ public class ControllerServlet extends HttpServlet {
 
 		Book book = new Book(id);
 		bookDAO.deleteBook(book);
-		response.sendRedirect("list");
+		response.sendRedirect("listBook");
 
 	}
 
@@ -151,7 +215,9 @@ public class ControllerServlet extends HttpServlet {
 			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("UserForm.jsp");
 		dispatcher.forward(request, response);
+		
 	}
+
 	private void showEditUserForm(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -167,7 +233,8 @@ public class ControllerServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		int age = Integer.parseInt(request.getParameter("age"));
 		String date = request.getParameter("date");
-
+	
+		
 		User newUser = new User(name, email, age, date);
 		userDAO.insertUser(newUser);
 		response.sendRedirect("listUser");

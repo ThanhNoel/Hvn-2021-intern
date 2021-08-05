@@ -10,16 +10,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
+
 	private String jdbcURL;
 	private String jdbcUsername;
 	private String jdbcPassword;
 	private Connection jdbcConnection;
 
 	public UserDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
-        this.jdbcURL = jdbcURL;
-        this.jdbcUsername = jdbcUsername;
-        this.jdbcPassword = jdbcPassword;
-    }
+		this.jdbcURL = jdbcURL;
+		this.jdbcUsername = jdbcUsername;
+		this.jdbcPassword = jdbcPassword;
+	}
+
+	public UserDAO() {
+		// TODO Auto-generated constructor stub
+	}
 
 	protected void connect() throws SQLException {
 		if (jdbcConnection == null || jdbcConnection.isClosed()) {
@@ -38,6 +43,54 @@ public class UserDAO {
 		}
 	}
 
+//---------------------------------------------------
+	public User checkLogin(String email, String password) throws SQLException, ClassNotFoundException {
+		// this is a bug,I don't understand why I can't user "connect()"
+		String jdbcURL = "jdbc:mysql://localhost:3306/bookstore";
+		String jdbcUsername = "root";
+		String jdbcPassword = "030699";
+
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection jdbcConnection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+
+		User user = null;
+		String sql = "SELECT * FROM user WHERE email = ? and password = ?";
+		// connect();
+
+		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+		statement.setString(1, email);
+		statement.setString(2, password);
+
+		ResultSet resultSet = statement.executeQuery();
+		if (resultSet.next()) {
+			user = new User();
+			user.setName(resultSet.getString("name"));
+			user.setEmail(email);
+		}
+
+		resultSet.close();
+		statement.close();
+
+		return user;
+	}
+	public boolean insertRegisteredUser(User user) throws SQLException {
+		String sql = "INSERT INTO user (name, email, age, date, password) VALUES (?, ?, ?, ?, ?)";
+		connect();
+
+		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+		statement.setString(1, user.getName());
+		statement.setString(2, user.getEmail());
+		statement.setInt(3, user.getAge());
+		statement.setString(4, user.getDate());
+		statement.setString(5, user.getPassword());
+
+		boolean rowInserted = statement.executeUpdate() > 0;
+		statement.close();
+		disconnect();
+		return rowInserted;
+	}
+
+	// ---------------------------------------------------------------------------
 	public boolean insertUser(User user) throws SQLException {
 		String sql = "INSERT INTO user (name, email, age, date) VALUES (?, ?, ?, ?)";
 		connect();
@@ -47,7 +100,6 @@ public class UserDAO {
 		statement.setString(2, user.getEmail());
 		statement.setInt(3, user.getAge());
 		statement.setString(4, user.getDate());
-		
 
 		boolean rowInserted = statement.executeUpdate() > 0;
 		statement.close();
@@ -69,9 +121,9 @@ public class UserDAO {
 			int id = resultSet.getInt("user_id");
 			String name = resultSet.getString("name");
 			String email = resultSet.getString("email");
-			int age =  resultSet.getInt("age");
+			int age = resultSet.getInt("age");
 			String date = resultSet.getString("date");
-
+			
 			User user = new User(id, name, email, age, date);
 			listUser.add(user);
 		}
@@ -99,8 +151,7 @@ public class UserDAO {
 	}
 
 	public boolean updateUser(User user) throws SQLException {
-		String sql = "UPDATE user SET name = ?, email = ?, age = ?, date = ?";
-		sql += " WHERE user_id = ?";
+		String sql = "UPDATE user SET name = ?, email = ?, age = ?, date = ? WHERE user_id = ?";
 		connect();
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
@@ -109,6 +160,7 @@ public class UserDAO {
 		statement.setInt(3, user.getAge());
 		statement.setString(4, user.getDate());
 		statement.setInt(5, user.getId());
+
 
 		boolean rowUpdated = statement.executeUpdate() > 0;
 		statement.close();
@@ -132,7 +184,7 @@ public class UserDAO {
 			String email = resultSet.getString("email");
 			int age = resultSet.getInt("age");
 			String date = resultSet.getString("date");
-
+			
 			user = new User(id, name, email, age, date);
 		}
 

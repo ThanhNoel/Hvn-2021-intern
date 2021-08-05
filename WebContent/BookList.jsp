@@ -14,6 +14,8 @@
             <a href="listBook">List All Books</a>
               &nbsp;&nbsp;&nbsp;
             <a href="listUser">User Management</a>
+              &nbsp;&nbsp;&nbsp;
+            <a href="Login">Log out</a>
         </h2>
     </center>
     <div align="center">

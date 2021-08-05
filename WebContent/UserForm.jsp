@@ -7,12 +7,13 @@
 </head>
 <body>
     <center>
-        <h1>User Management</h1>
+        <h1>Users Management</h1>
         <h2>
             <a href="newUser">Add New User</a>
             &nbsp;&nbsp;&nbsp;
             <a href="listUser">List All Users</a>
-             
+             &nbsp;&nbsp;&nbsp;
+            <a href="listBook">Book Management</a>
         </h2>
     </center>
     <div align="center">
