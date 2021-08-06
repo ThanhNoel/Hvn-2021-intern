@@ -1,52 +1,52 @@
 package com.nashtech.intern.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 public class User implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
-	
+
+	private static final long serialVersionUID = -3282826075725952168L;
+
 	private Long userId;
+
 	private String firstName;
+
 	private String lastName;
+
 	private int age;
+	
+	private Date dob;
+
 	private String email;
 
-	private List<Book> books;
-
 	public User() {
-		firstName = "";
-		lastName = "";
-		email = "";
-		books = new ArrayList<>();
+		super();
 	}
 
-	public void setBooks(List<Book> lineBook) {
-		books = lineBook;
+	public User(Long userId, String firstName, String lastName, int age, String email) {
+		super();
+		this.userId = userId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+		this.email = email;
 	}
 
-	public List<Book> getBooks() {
-		return books;
+	public Date getDob() {
+		return dob;
 	}
 
-	public int getQuantity() {
-		return books.size();
+	public void setDob(Date dob) {
+		this.dob = dob;
 	}
 
-	public void addBook(Book book) {
-		books.add(book);
-	}
-
-	public void removeBook(Book book) {
-		for (int i = 0; i < books.size(); i++) {
-			Book removeBook = books.get(i);
-			if (book.getBookId() == removeBook.getBookId()) {
-				books.remove(i);
-				return;
-			}
-		}
+	public User(String firstName, String lastName, int age, Date dob, String email) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+		this.dob = dob;
+		this.email = email;
 	}
 
 	public Long getUserId() {
@@ -89,4 +89,5 @@ public class User implements Serializable{
 		this.email = email;
 	}
 
+	
 }

@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Trang chủ</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<h1>Trang chủ 123</h1>
+
 </body>
 </html>

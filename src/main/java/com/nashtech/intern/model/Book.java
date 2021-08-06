@@ -2,19 +2,41 @@ package com.nashtech.intern.model;
 
 import java.io.Serializable;
 
-public class Book implements Serializable {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Book implements Serializable{
+
+	private static final long serialVersionUID = -7770001811935134708L;
 
 	private Long bookId;
+	
+	
 	private String title;
+	
+	
 	private String author;
-	private String catergory;
+	
+	
+	private String category;
+
+	private Long userId;
 
 	public Book() {
+		super();
+	}
+
+	public Book(String title, String author, String category) {
+		super();
+		this.title = title;
+		this.author = author;
+		this.category = category;
+	}
+
+	public Book(Long bookId, String title, String author, String category, Long userId) {
+		super();
+		this.bookId = bookId;
+		this.title = title;
+		this.author = author;
+		this.category = category;
+		this.userId = userId;
 	}
 
 	public Long getBookId() {
@@ -41,11 +63,20 @@ public class Book implements Serializable {
 		this.author = author;
 	}
 
-	public String getCatergory() {
-		return catergory;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setCatergory(String catergory) {
-		this.catergory = catergory;
+	public void setCategory(String category) {
+		this.category = category;
 	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
 }
