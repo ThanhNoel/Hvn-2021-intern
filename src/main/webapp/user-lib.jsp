@@ -9,9 +9,9 @@
 	<div align="center">
 		<h1>Dashboard</h1>
 		<h2>
-			<a href=new>Add New User</a> 
+			<a href=add-book>Add New Book</a> 
 			&nbsp;&nbsp;&nbsp; 
-			<a href=list>List All Users</a>
+			<a href=list-lib>List All User's Book</a>
 		</h2>
 	</div>
 	<div align="center">
@@ -24,7 +24,7 @@
 				<th>Category</th>
 				<th>Action</th>
 			</tr>
-			<c:forEach var="book" items="${listBooks}">
+			<c:forEach var="book" items="${listBooksByUser}">
 				<tr>
 					<td>${book.bookId}</td>
 					<td>${book.title}</td>

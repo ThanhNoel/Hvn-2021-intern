@@ -20,11 +20,11 @@ public class BookDAO extends DatabaseConnection implements IBookDAO{
 			while (resultSet.next())
 			{
 				Book book = new Book();
-				book.setBookId((long) resultSet.getInt("bookID"));
+				book.setBookId(resultSet.getLong("bookID"));
 				book.setAuthor(resultSet.getString("author"));
 				book.setTitle(resultSet.getString("title"));
 				book.setCategory(resultSet.getString("category"));
-				book.setUserId((long) resultSet.getInt("userID"));
+				book.setUserId(resultSet.getLong("userID"));
 				
 				books.add(book);
 			}
@@ -34,16 +34,16 @@ public class BookDAO extends DatabaseConnection implements IBookDAO{
 		return books;
 	}
 
-	public Book getBookById(int bookId) {
+	public Book getBookById(long bookId) {
 		Book book = new Book();
 		String sql = "SELECT * FROM intern_library.book where bookID=?";
 		try {
 			PreparedStatement ps = connector.prepareStatement(sql);
-			ps.setInt(1, bookId);
+			ps.setLong(1, bookId);
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-				book.setBookId((long) rs.getInt("idBook"));
+				book.setBookId(rs.getLong("bookID"));
 				book.setTitle(rs.getString("title"));
 				book.setAuthor(rs.getString("author"));
 				book.setCategory(rs.getString("category"));
@@ -56,21 +56,21 @@ public class BookDAO extends DatabaseConnection implements IBookDAO{
 		return null;
 	}
 
-	public List<Book> getBooksByUser(int userId) {
+	public List<Book> getBooksByUser(long userId) {
 		List<Book> books = new ArrayList<Book>();
 		String sql = "SELECT * FROM intern_library.book where userID=?";
 		try {
 			PreparedStatement ps = connector.prepareStatement(sql);
-			ps.setInt(1, userId);
+			ps.setLong(1, userId);
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
 				Book book =new Book();
-				book.setBookId((long) rs.getInt("bookID"));
+				book.setBookId(rs.getLong("bookID"));
 				book.setTitle(rs.getString("title"));
 				book.setAuthor(rs.getString("author"));
 				book.setCategory(rs.getString("category"));
-				book.setUserId((long) rs.getInt("userID"));
+				book.setUserId(rs.getLong("userID"));
 				
 				books.add(book);
 			}
@@ -123,11 +123,11 @@ public class BookDAO extends DatabaseConnection implements IBookDAO{
 
 			while (rs.next()) {
 				Book book = new Book();
-				book.setBookId((long) rs.getInt("bookID"));
+				book.setBookId(rs.getLong("bookID"));
 				book.setAuthor(rs.getString("author"));
 				book.setCategory(rs.getString("category"));
 				book.setTitle(rs.getString("title"));
-				book.setUserId((long) rs.getInt("userID"));
+				book.setUserId(rs.getLong("userID"));
 
 				books.add(book);
 			}

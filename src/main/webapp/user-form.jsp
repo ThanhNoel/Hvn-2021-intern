@@ -8,7 +8,7 @@
 
         <body>
             <div align=center>
-                <h1>Dashboard</h1>
+                <h1>Form</h1>
                 <h2>
                     <a href="new">Add New User</a>
                     &nbsp;&nbsp;&nbsp;
@@ -35,7 +35,7 @@
                         </h2>
                     </caption>
                     <c:if test="${user != null}">
-                        <input type="hidden" name="id" value="<c:out value='${user.id}' />" />
+                        <input type="hidden" name="id" value="<c:out value='${user.userId}' />" />
                     </c:if>
                     <tr>
                         <th>First name: </th>
@@ -58,7 +58,7 @@
                     <tr>
                         <th>Email: </th>
                         <td>
-                            <input type="email" name="email" pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
+                            <input type="email" name="email" pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/"
                             value="<c:out value='${user.dob}' />" required/>
                         </td>
                     </tr>

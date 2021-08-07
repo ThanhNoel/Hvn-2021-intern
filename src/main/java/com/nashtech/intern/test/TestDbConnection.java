@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class TestDbConnection {
 	public static void main(String[] args) {
-	    String url = "jdbc:mysql://localhost:3306"; //pointing to no database.
+	    String url = "jdbc:mysql://localhost:3306/intern_library"; //pointing to no database.
 	    String username = "root";
 	    String password = "hungtran";
 
@@ -21,14 +21,14 @@ public class TestDbConnection {
 
 	        try {
 	            stmt = connection.createStatement();
-	            resultset = stmt.executeQuery("SHOW DATABASES;");
+	            resultset = stmt.executeQuery("select * from intern_library.user");
 
-	            if (stmt.execute("SHOW DATABASES;")) {
+	            if (stmt.execute("select * from intern_library.user")) {
 	                resultset = stmt.getResultSet();
 	            }
 
 	            while (resultset.next()) {
-	                System.out.println(resultset.getString("Database"));
+	                System.out.println(resultset.getString("firstName"));
 	            }
 	        }
 	        catch (SQLException ex){

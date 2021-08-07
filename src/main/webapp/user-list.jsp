@@ -9,14 +9,14 @@
 	<div align="center">
 		<h1>Dashboard</h1>
 		<h2>
-			<a href='<c:url value="/new" />'>Add New User</a> 
+			<a href=new>Add New User</a> 
 			&nbsp;&nbsp;&nbsp; 
-			<a href='<c:url value="/list" />'>List All Users</a>
+			<a href=list>List All Users</a>
 		</h2>
 	</div>
 	<div align="center">
 		<h2>List of Users</h2>
-		<table border="1">
+		<table border="1" cellpadding="5" cellspacing="2">
 
 			<tr>
 				<th>ID</th>
@@ -29,16 +29,50 @@
 			</tr>
 			<c:forEach var="user" items="${listUsers}">
 				<tr>
-					<td><c:out value="${user.userId}" /></td>
-					<td><c:out value="${user.firstName}" /></td>
-					<td><c:out value="${user.lastName}" /></td>
-					<td><c:out value="${user.age}" /></td>
-					<td><c:out value="${user.dob}" /></td>
-					<td><c:out value="${user.email}" /></td>
+					<td>${user.userId}</td>
+					<td>${user.firstName}</td>
+					<td>${user.lastName}</td>
+					<td>${user.age}</td>
+					<td>${user.dob}</td>
+					<td>${user.email}</td>
 					<td>
-						<a href="edit?id=<c:out value='${user.userId}' />">Edit</a>
+						<a href="modify?id=${user.userId}">Modify</a>
 						&nbsp;&nbsp;&nbsp;&nbsp; 
-						<a href="delete?id=<c:out value='${user.userId}' />">Delete</a>
+						<a href="delete?id=${user.userId}">Delete</a>
+					</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
+	<div align="center">
+		<h2>
+			<a href=new>Add New User</a> 
+			&nbsp;&nbsp;&nbsp; 
+			<a href=list>List All Users</a>
+		</h2>
+	</div>
+	<div align="center">
+		<h2>List of Books</h2>
+		<table border="1" cellpadding="5" cellspacing="2">
+			<tr>
+				<th>ID</th>
+				<th>Title</th>
+				<th>Author</th>
+				<th>Category</th>
+				<th>Action</th>
+			</tr>
+			<c:forEach var="book" items="${listBooks}">
+				<tr>
+					<td>${book.bookId}</td>
+					<td>${book.title}</td>
+					<td>${book.author}</td>
+					<td>${book.category}</td>
+					<td>
+						<a href="modify?id=${user.userId}">Modify</a>
+						&nbsp;&nbsp;&nbsp;&nbsp; 
+						<a href="lib?id=${user.userId}">Has books</a>
+						&nbsp;&nbsp;&nbsp;&nbsp; 
+						<a href="add-book?id=${user.userId}">Add books</a>
 					</td>
 				</tr>
 			</c:forEach>

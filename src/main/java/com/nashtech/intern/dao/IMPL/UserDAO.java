@@ -2,6 +2,7 @@ package com.nashtech.intern.dao.IMPL;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,41 +14,48 @@ public class UserDAO extends DatabaseConnection implements IUserDAO {
 
 	@Override
 	public List<User> getAllUser() {
-		List<User> result = new ArrayList<User>();
+		List<User> users = new ArrayList<User>();
 
 		String sql = "SELECT * FROM intern_library.user";
 		try {
-			PreparedStatement ps = connector.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
+			Statement statement = connector.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
 
+            if (statement.execute(sql)) {
+                rs = statement.getResultSet();
+            }
+
+			
 			while (rs.next()) {
 				User user = new User();
-				user.setUserId((long) rs.getInt("userID"));
+				user.setUserId(rs.getLong("userID"));
 				user.setFirstName(rs.getString("firstName"));
 				user.setLastName(rs.getString("lastName"));
 				user.setAge(rs.getInt("age"));
 				user.setDob(rs.getDate("dob"));
 				user.setEmail(rs.getString("email"));
 
-				result.add(user);
+				users.add(user);
 			}
+			statement.close();
+			connector.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return result;
+		return users;
 	}
-
+	
 	@Override
-	public User getUserById(int userId) {
+	public User getUserById(long userId) {
 		User user = new User();
-		String sql = "SELECT * FROM intern_library.user where idUser=?";
+		String sql = "SELECT * FROM intern_library.user where userID=?";
 		try {
 			PreparedStatement ps = connector.prepareStatement(sql);
-			ps.setInt(1, userId);
+			ps.setLong(1, userId);
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-				user.setUserId((long) rs.getInt("useID"));
+				user.setUserId(rs.getLong("useID"));
 				user.setFirstName(rs.getString("firstName"));
 				user.setLastName(rs.getString("lastName"));
 				user.setAge(rs.getInt("age"));
@@ -97,4 +105,11 @@ public class UserDAO extends DatabaseConnection implements IUserDAO {
 		return false;
 	}
 
+//	public static void main() {
+//		UserDAO userDAO = new UserDAO();
+//		List<User> users = userDAO.getAllUser();
+//		for (User user : users) {
+//			System.out.println(user.getEmail());
+//		}
+//	}
 }
