@@ -15,7 +15,7 @@
             &nbsp;&nbsp;&nbsp;
             <a href="listBook">Book Management</a>
             &nbsp;&nbsp;&nbsp;
-            <a href="login">Log out</a>
+            <a href="">Log out</a>
         </h2>
     </center>
     <div align="center">

@@ -23,6 +23,7 @@
         <c:if test="${book == null}">
             <form action="insertBook" method="post">
         </c:if>
+        <input type="hidden" name="id" value="<c:out value='${user.id}' />" />
         <table border="1" cellpadding="5">
             <caption>
                 <h2>
@@ -35,7 +36,6 @@
                 </h2>
             </caption>
                 <c:if test="${book != null}">
-                    <input type="hidden" name="id" value="<c:out value='${book.id}' />" />
                 </c:if>           
             <tr>
                 <th>Title: </th>

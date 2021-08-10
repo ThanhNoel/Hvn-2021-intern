@@ -16,6 +16,7 @@
             <a href="listBook">Book Management</a>
         </h2>
     </center>
+    
     <div align="center">
         <c:if test="${user != null}">
             <form action="updateUser" method="post">
@@ -23,6 +24,7 @@
         <c:if test="${user == null}">
             <form action="insertUser" method="post">
         </c:if>
+         <input type="hidden" name="id_user" value="<c:out value='${user.id}' />" />
         <table border="1" cellpadding="5">
             <caption>
                 <h2>
@@ -35,7 +37,7 @@
                 </h2>
             </caption>
                 <c:if test="${user != null}">
-                    <input type="hidden" name="id" value="<c:out value='${user.id}' />" />
+                    <input type="hidden" name="id" value="<c:out value='${book.id}' />" />
                 </c:if>           
             <tr>
                 <th>Name: </th>

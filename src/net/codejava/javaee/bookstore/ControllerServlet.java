@@ -106,33 +106,31 @@ public class ControllerServlet extends HttpServlet {
 		UserDAO userDao = new UserDAO();
 
 		User user = userDao.checkLogin(email, password);
-
-		if (user.getRole().equals("admin")) {
-			HttpSession session = request.getSession();
-			session.setAttribute("user", user);
-			System.out.println("admin");
-			listBook(request, response);
-			
-
-		} else if (user.getRole().equals("reader")) {
+		if (user.getRole().equals("reader")) {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
 			System.out.println("reader");
 			home(request, response);
-
+		} else if (user.getRole().equals("admin")) {
+			HttpSession session = request.getSession();
+			session.setAttribute("user", user);
+			System.out.println("admin");
+			listBook(request, response);
 		} else {
 			String message = "Invalid email/password";
 			request.setAttribute("message", message);
 			System.out.println("inavlid");
 		}
 //
-//		RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
+//       RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
 //		dispatcher.forward(request, response);
 
 	}
 
 	private void home(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
+		List<Book> listBook = bookDAO.listAllBooks();
+		request.setAttribute("listBook", listBook);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Home.jsp");
 		dispatcher.forward(request, response);
 	}

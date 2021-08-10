@@ -55,7 +55,7 @@ public class UserDAO {
 
 		User user = new User();
 		String sql = "SELECT * FROM user WHERE email = ? and password = ?";
-		// connect();
+		//connect();
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
 		statement.setString(1, email);
@@ -75,9 +75,9 @@ public class UserDAO {
 	
 		}
 
+		
 		resultSet.close();
 		statement.close();
-
 		return user;
 	}
 	
