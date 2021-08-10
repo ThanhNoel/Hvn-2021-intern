@@ -34,7 +34,7 @@ public class UpdateSelectedBookServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try {
+		try {   
 			
 			int id_user = Integer.parseInt(request.getParameter("id_user"));
 			// int id_book = Integer.parseInt(request.getParameter("id_book"));
