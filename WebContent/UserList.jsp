@@ -39,7 +39,9 @@
                     <td>
                         <a href="editUser?id=<c:out value='${user.id}' />">Edit</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="deleteUser?id=<c:out value='${user.id}' />">Delete</a>                     
+                        <a href="deleteUser?id=<c:out value='${user.id}' />">Delete</a> 
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="GetSelectedBookServlet?id=<c:out value='${user.id}' />">Selected books</a>                            
                     </td>
                 </tr>
             </c:forEach>

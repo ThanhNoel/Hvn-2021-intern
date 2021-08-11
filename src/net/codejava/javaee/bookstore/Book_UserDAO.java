@@ -1,9 +1,17 @@
 package net.codejava.javaee.bookstore;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class Book_UserDAO {
 	private String jdbcURL;
@@ -33,19 +41,41 @@ public class Book_UserDAO {
 			jdbcConnection.close();
 		}
 	}
-	public boolean insert_IdBook_IdUser(int id_book, int id_user) throws SQLException {
-		String sql = "INSERT INTO mergedtable(user_id, book_id) VALUES (?, ?)";
+	public boolean insert_BookName_IdUser(String book_name, int id_user) throws SQLException {
+		String sql = "INSERT INTO mergedtable(user_id, book_name) VALUES (?, ?)";
 		connect();
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-		statement.setInt(1, id_book);
-		statement.setInt(2, id_user);
+		statement.setInt(1, id_user);
+		statement.setString(2, book_name);
 
 		boolean rowInserted = statement.executeUpdate() > 0;
 		statement.close();
 		disconnect();
 		return rowInserted;
 	}
+	
+	public List<String> ShowSelectedBook(int user_id) throws SQLException {
+		System.out.println(user_id);
+		List<String> listBook = new ArrayList<>();
+		String sql = "SELECT * FROM mergedtable WHERE user_id = ?";
+		connect();
 
+		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+		statement.setInt(1, user_id);
+		
+		ResultSet resultSet = statement.executeQuery();
+		while (resultSet.next()) {
+			String title = resultSet.getString("book_name");
+			listBook.add(title);
+		}
+
+		resultSet.close();
+		statement.close();
+
+		disconnect();
+
+		return listBook;
+	}
 
 }

@@ -2,15 +2,17 @@ package net.codejava.javaee.bookstore;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/UpdateSelectedBookServlet")
-public class UpdateSelectedBookServlet extends HttpServlet {
+@WebServlet("/GetSelectedBookServlet")
+public class GetSelectedBookServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Book_UserDAO book_UserDAO;
 
@@ -22,32 +24,25 @@ public class UpdateSelectedBookServlet extends HttpServlet {
 		book_UserDAO = new Book_UserDAO(jdbcURL, jdbcUsername, jdbcPassword);
 	}
 
-	public UpdateSelectedBookServlet() {
+	public GetSelectedBookServlet() {
 		super();
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		doGet(request, response);
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try {   
-			
-			int id_user = Integer.parseInt(request.getParameter("id_user"));
-			String[] checkbox = request.getParameterValues("checkbox");
-			for (int i = 0; i < checkbox.length; i++) {
-				if (checkbox[i] != null) {
-
-					book_UserDAO.insert_BookName_IdUser(checkbox[i], id_user);
-
-				}
-			}
-			System.out.println("user id is: " + id_user);
-			response.sendRedirect("HomeServlet");
-			
+		try {
+			int id_user = Integer.parseInt(request.getParameter("id"));
+			List<String> listBook;
+			listBook = book_UserDAO.ShowSelectedBook(id_user);
+			request.setAttribute("listBook", listBook);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("ShowSelectedBook.jsp");
+			dispatcher.forward(request, response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
