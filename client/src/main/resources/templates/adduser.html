@@ -1,0 +1,19 @@
+<html>
+<head>
+	<title>ADD USER</title>
+</head>
+<body>
+	<h1>ADD NEW USER</h1>
+		<form method="POST" th:object ="${user}">
+			<label>FirstName:</label>
+			<input type="text" th:field="*{firstName}"><br>
+			<label>Last Name:</label>
+			<input type="text" th:field="*{lastName}"><br>
+			<label>Email:</label>
+			<input type="text" th:field="*{email}"><br>
+			<label>DOB:</label>
+			<input type="date" th:field="*{dob}"><br>
+			<button type ="submit">OK</button>
+		</form>
+</body>
+</html>
