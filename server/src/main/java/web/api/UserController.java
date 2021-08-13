@@ -1,5 +1,6 @@
 package web.api;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,7 +20,6 @@ import web.model.User;
 @CrossOrigin("*")
 public class UserController {
 	private UserRepository userRepo;
-
 	public UserController(UserRepository userRepo) {
 		this.userRepo = userRepo;
 	}
@@ -44,6 +44,5 @@ public class UserController {
 	public void updateUser(@RequestBody User user) {
 		userRepo.save(user);
 	}
-	
-	
+
 }

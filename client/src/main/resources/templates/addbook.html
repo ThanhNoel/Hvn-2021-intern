@@ -1,0 +1,24 @@
+<html>
+<head>
+	<title>ADD BOOK</title>
+</head>
+<body>
+	<h1>ADD NEW BOOK</h1>
+		<form method="POST" th:object ="${book}">
+			<label>Title:</label>
+			<input type="text" th:field="*{title}"><br>
+			<label>Author:</label>
+			<input type="text" th:field="*{author}"><br>
+			<label>Category:</label>
+			<select th:field="*{category}">
+				<option value="Action and Adventure">Action and Adventure</option>
+				<option value="Classic">Classic</option>
+				<option value="Comic book or graphic novel">Comic book or graphic novel</option>
+				<option value="Detective and mystery">Detective and mystery</option>
+				<option value="Fantasy">Fantasy</option>
+				<option value="Horror">Horror</option>
+			</select>
+			<button type ="submit">OK</button>
+		</form>
+</body>
+</html>

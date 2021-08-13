@@ -1,0 +1,30 @@
+<html>
+<head>
+	<title>BOOK</title>
+</head>
+<body>
+	<h1>LIST BOOK</h1>
+	<a href="/book/addbook">ADD BOOK</a>
+	<table border="1">
+		<thead>
+			<th>ID</th>
+			<th>Title</th>
+			<th>Author</th>
+			<th>Category</th>
+			<th></th>
+		</thead>
+		
+		<tbody>
+			<tr th:each="l:${list}">
+				<td th:text= "${l.id}"></td>
+				<td th:text= "${l.title}"></td>
+				<td th:text= "${l.author}"></td>
+				<td th:text= "${l.category}"></td>
+				<td>
+					<a th:href="@{'/book/updatebook/'+${l.id}}">UPDATE</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

@@ -1,7 +1,6 @@
 package web.controller;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,13 +29,12 @@ public class UserController {
 	@GetMapping("/adduser")
 	public String addUser(Model model) {
 		User user = new User();
-		model.addAttribute("user",user);
+		model.addAttribute("user", user);
 		return "/adduser";
 	}
 	@PostMapping("/adduser")
 	public String addUserProcess(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName, @RequestParam("email") String email,@RequestParam("dob") Date dob) {
 		User user = new User(firstName, lastName, email, dob, 0);
-		System.out.println(user.toString());
 		rest.postForObject("http://localhost:8080/user", user, User.class);
 		return "redirect:/user";
 	}
@@ -59,4 +57,5 @@ public class UserController {
 		rest.put("http://localhost:8080/user/{id}", user, user.getId());
 		return "redirect:/user";
 	}
+	
 }

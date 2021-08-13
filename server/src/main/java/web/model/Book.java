@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -19,9 +20,9 @@ public class Book {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	@Max(100)
+	@Size(max = 100)
 	private String title;
-	@Max(100)
+	@Size(max = 100)
 	private String author;
 	private String category;
 	@ManyToOne
@@ -32,7 +33,7 @@ public class Book {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Book(int id, @Max(100) String title, @Max(100) String author, String category) {
+	public Book(int id, String title,String author, String category) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -68,6 +69,10 @@ public class Book {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", category=" + category;
 	}
 	
 	

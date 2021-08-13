@@ -38,6 +38,7 @@ public class BookController {
 	}
 	@PostMapping()
 	public void addBook(@RequestBody Book book) {
+		System.out.println(book.toString());
 		bookRepo.save(book);
 	}
 	@PutMapping("/{id}")
