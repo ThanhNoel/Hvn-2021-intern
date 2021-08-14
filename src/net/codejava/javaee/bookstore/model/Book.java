@@ -8,7 +8,7 @@ package net.codejava.javaee.bookstore.model;
  */
 public class Book {
     protected int id;
-    protected String title;
+    protected String title; 
     protected String author;
     protected String category;
  

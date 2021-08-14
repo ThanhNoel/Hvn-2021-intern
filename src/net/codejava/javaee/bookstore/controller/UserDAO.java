@@ -15,7 +15,7 @@ public class UserDAO {
 
 	private String jdbcURL;
 	private String jdbcUsername;
-	private String jdbcPassword;
+	private String jdbcPassword; 
 	private Connection jdbcConnection;
 
 	public UserDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {

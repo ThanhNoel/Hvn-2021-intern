@@ -26,7 +26,7 @@ public class GetSelectedBookServlet extends HttpServlet {
 		book_UserDAO = new Book_User_DAO(jdbcURL, jdbcUsername, jdbcPassword);
 	}
 
-	public GetSelectedBookServlet() {
+	public GetSelectedBookServlet() { 
 		super();
 
 	}

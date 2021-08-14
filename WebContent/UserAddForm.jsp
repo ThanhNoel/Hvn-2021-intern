@@ -83,7 +83,7 @@ div.content {
 }
 
 </style>
-</head>
+</head> 
 <body>
     <center>
        <br><h1>Users Management</h1>

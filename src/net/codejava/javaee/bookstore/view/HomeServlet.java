@@ -26,7 +26,7 @@ public class HomeServlet extends HttpServlet {
 		String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
 
 		bookDAO = new BookDAO(jdbcURL, jdbcUsername, jdbcPassword);
-	}
+	} 
 
     
     public HomeServlet() {

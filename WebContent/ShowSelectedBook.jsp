@@ -38,7 +38,7 @@ body {
 	<form action="GetSelectedBookServlet" method="post">
 		<center>
 			<br><h1>Selected Books</h1>
-		</center>
+		</center> 
 		<div align="center">
 			<table border="1" cellpadding="5" id = css>
 				<tr>

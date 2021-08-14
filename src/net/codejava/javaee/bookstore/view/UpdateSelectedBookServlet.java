@@ -25,7 +25,7 @@ public class UpdateSelectedBookServlet extends HttpServlet {
 	}
 
 	public UpdateSelectedBookServlet() {
-		super();
+		super(); 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

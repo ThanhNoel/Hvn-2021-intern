@@ -95,7 +95,7 @@ div.content {
             <a href="listBook">Book Management</a>
         </div>
     </center>
-    
+     
     <div align="center">
         <c:if test="${user != null}">
             <form action="updateUser" method="post">

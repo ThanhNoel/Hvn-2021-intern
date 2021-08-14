@@ -37,7 +37,7 @@ body {
   color: white;
 }
 
-div.content {
+div.content { 
   margin-left: 100px;
   padding: 1px 16px;
   height: 1000px;

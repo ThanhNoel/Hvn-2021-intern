@@ -10,7 +10,7 @@ public class User {
 	protected String role;
 
 	public User() {
-		super();
+		super(); 
 	}
 
 	public User(int id) {

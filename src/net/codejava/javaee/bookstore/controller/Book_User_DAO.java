@@ -17,14 +17,14 @@ public class Book_User_DAO {
 	private String jdbcURL;
 	private String jdbcUsername;
 	private String jdbcPassword;
-	private Connection jdbcConnection;
+	private Connection jdbcConnection; 
 
 	public Book_User_DAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
 		this.jdbcURL = jdbcURL;
 		this.jdbcUsername = jdbcUsername;
 		this.jdbcPassword = jdbcPassword;
 	}
-
+ 
 	protected void connect() throws SQLException {
 		if (jdbcConnection == null || jdbcConnection.isClosed()) {
 			try {

@@ -100,7 +100,7 @@ div.content {
 					<th>Title</th>
 					<th>Author</th>
 					<th>Category</th>
-					<th>Selection</th>
+					<th>Selection</th> 
 				</tr>
 				<c:forEach var="book" items="${listBook}">
 					<tr>

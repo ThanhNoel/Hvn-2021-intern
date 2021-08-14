@@ -18,7 +18,7 @@ import net.codejava.javaee.bookstore.model.Book;
  * 
  * @author www.codejava.net
  *
- */
+ */ 
 public class BookDAO {
 	private String jdbcURL;
 	private String jdbcUsername;
