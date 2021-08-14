@@ -1,4 +1,4 @@
-package net.codejava.javaee.bookstore;
+package net.codejava.javaee.bookstore.view;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import net.codejava.javaee.bookstore.controller.BookDAO;
+import net.codejava.javaee.bookstore.controller.UserDAO;
+import net.codejava.javaee.bookstore.model.Book;
+import net.codejava.javaee.bookstore.model.User;
 
 /**
  * ControllerServlet.java This servlet acts as a page controller for the
@@ -42,9 +47,7 @@ public class ControllerServlet extends HttpServlet {
 
 		try {
 			switch (action) {
-			case "/home":
-				home(request, response);
-				break;
+			// --User's modules--
 			case "/register":
 				register(request, response);
 				break;
@@ -69,7 +72,7 @@ public class ControllerServlet extends HttpServlet {
 			case "/updateUser":
 				updateUser(request, response);
 				break;
-			// ---------------------------------------------
+			//-- Book's modules--
 			case "/newBook":
 				showNewBookForm(request, response);
 				break;
@@ -87,6 +90,9 @@ public class ControllerServlet extends HttpServlet {
 				break;
 			case "/listBook":
 				listBook(request, response);
+				break;
+			case "/logout":
+				logout(request, response);
 				break;
 			default:
 				login(request, response);
@@ -116,17 +122,14 @@ public class ControllerServlet extends HttpServlet {
 			session.setAttribute("user", user);
 			System.out.println("admin");
 			listBook(request, response);
-		} else {
-			String message = "Invalid email/password";
-			request.setAttribute("message", message);
-			System.out.println("inavlid");
-		}
-//
-//       RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
-//		dispatcher.forward(request, response);
-
+		} 
 	}
 
+	private void logout(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Login.jsp");
+		dispatcher.forward(request, response);
+	} 
 	private void home(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		List<Book> listBook = bookDAO.listAllBooks();
@@ -219,7 +222,7 @@ public class ControllerServlet extends HttpServlet {
 
 	private void showNewUserForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("UserForm.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("UserAddForm.jsp");
 		dispatcher.forward(request, response);
 
 	}
@@ -228,7 +231,7 @@ public class ControllerServlet extends HttpServlet {
 			throws SQLException, ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		User existingUser = userDAO.getUser(id);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("UserForm.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("UserEditForm.jsp");
 		request.setAttribute("user", existingUser);
 		dispatcher.forward(request, response);
 

@@ -1,4 +1,4 @@
-package net.codejava.javaee.bookstore;
+package net.codejava.javaee.bookstore.controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale.Category;
+
+import net.codejava.javaee.bookstore.model.Book;
 
 /**
  * AbstractDAO.java This DAO class provides CRUD database operations for the

@@ -1,4 +1,4 @@
-package net.codejava.javaee.bookstore;
+package net.codejava.javaee.bookstore.controller;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,13 +13,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Book_UserDAO {
+public class Book_User_DAO {
 	private String jdbcURL;
 	private String jdbcUsername;
 	private String jdbcPassword;
 	private Connection jdbcConnection;
 
-	public Book_UserDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
+	public Book_User_DAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
 		this.jdbcURL = jdbcURL;
 		this.jdbcUsername = jdbcUsername;
 		this.jdbcPassword = jdbcPassword;

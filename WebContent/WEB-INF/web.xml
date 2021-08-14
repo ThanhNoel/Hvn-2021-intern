@@ -22,7 +22,7 @@
  
     <servlet>
         <servlet-name>ControllerServlet</servlet-name>
-        <servlet-class>net.codejava.javaee.bookstore.ControllerServlet</servlet-class>   
+        <servlet-class>net.codejava.javaee.bookstore.view.ControllerServlet</servlet-class>   
     </servlet>
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>

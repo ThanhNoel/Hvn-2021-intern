@@ -1,4 +1,4 @@
-package net.codejava.javaee.bookstore;
+package net.codejava.javaee.bookstore.view;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -9,17 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.codejava.javaee.bookstore.controller.Book_User_DAO;
+
 @WebServlet("/UpdateSelectedBookServlet")
 public class UpdateSelectedBookServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Book_UserDAO book_UserDAO;
+	private Book_User_DAO book_UserDAO;
 
 	public void init() {
 		String jdbcURL = getServletContext().getInitParameter("jdbcURL");
 		String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
 		String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
 
-		book_UserDAO = new Book_UserDAO(jdbcURL, jdbcUsername, jdbcPassword);
+		book_UserDAO = new Book_User_DAO(jdbcURL, jdbcUsername, jdbcPassword);
 	}
 
 	public UpdateSelectedBookServlet() {
@@ -40,9 +42,7 @@ public class UpdateSelectedBookServlet extends HttpServlet {
 			String[] checkbox = request.getParameterValues("checkbox");
 			for (int i = 0; i < checkbox.length; i++) {
 				if (checkbox[i] != null) {
-
 					book_UserDAO.insert_BookName_IdUser(checkbox[i], id_user);
-
 				}
 			}
 			System.out.println("user id is: " + id_user);

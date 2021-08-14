@@ -86,58 +86,43 @@ div.content {
 </head>
 <body>
     <center>
-       <br><h1>Books Management</h1>
+       <br><h1>Users Management</h1>
        <div class="sidebar">
-            <a href="newBook">Add New Book</a>
+            <a href="newUser">Add New User</a>
             &nbsp;&nbsp;&nbsp;
-            <a href="listBook">List All Books</a>
+            <a href="listUser">List All Users</a>
              &nbsp;&nbsp;&nbsp;
-            <a href="listUser">User Management</a>
+            <a href="listBook">Book Management</a>
         </div>
     </center>
+    
     <div align="center">
-        <c:if test="${book != null}">
-            <form action="updateBook" method="post">
-        </c:if>
-        <c:if test="${book == null}">
-            <form action="insertBook" method="post">
-        </c:if>
-        <input type="hidden" name="id" value="<c:out value='${user.id}' />" />
-        <table border="1" cellpadding="5" id = "css">
+            <form action="insertUser" method="post">
+        <table border="1" cellpadding="5" id="css">
             <caption>
-                <h2>
-                    <c:if test="${book != null}">
-                        Edit Book
-                    </c:if>
-                    <c:if test="${book == null}">
-                        Add New Book
-                     </c:if>
-                </h2>
-            </caption>
-                <c:if test="${book != null}">
-                </c:if>           
+                <h2> Add New User </h2>         
             <tr>
-                <th>Title: </th>
+                <th>Name: </th>
                 <td>
-                    <input type="text" name="title" size="45"
-                            value="<c:out value='${book.title}' />"
-                        />
+                    <input type="text" name="name" size="50"/>
                 </td>
             </tr>
             <tr>
-                <th>Author: </th>
+                <th>Email: </th>
                 <td>
-                    <input type="text" name="author" size="45"
-                            value="<c:out value='${book.author}' />"
-                    />
+                    <input type="text" name="email" size="50"/>
                 </td>
             </tr>
             <tr>
-                <th>Category: </th>
+                <th>Age: </th>
                 <td>
-                    <input type="text" name="category" size="45"
-                            value="<c:out value='${book.category}' />"
-                    />
+                    <input type="text" name="age" size="50" />
+                </td>
+            </tr>
+            <tr>
+                <th>Date: </th>
+                <td>
+                    <input type="text" name="date" size="50" />
                 </td>
             </tr>
             <tr>

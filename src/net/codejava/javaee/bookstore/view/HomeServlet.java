@@ -1,4 +1,4 @@
-package net.codejava.javaee.bookstore;
+package net.codejava.javaee.bookstore.view;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -11,42 +11,46 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/GetSelectedBookServlet")
-public class GetSelectedBookServlet extends HttpServlet {
+import net.codejava.javaee.bookstore.controller.BookDAO;
+import net.codejava.javaee.bookstore.model.Book;
+
+
+@WebServlet("/HomeServlet")
+public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Book_UserDAO book_UserDAO;
+	private BookDAO bookDAO;
 
 	public void init() {
 		String jdbcURL = getServletContext().getInitParameter("jdbcURL");
 		String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
 		String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
 
-		book_UserDAO = new Book_UserDAO(jdbcURL, jdbcUsername, jdbcPassword);
+		bookDAO = new BookDAO(jdbcURL, jdbcUsername, jdbcPassword);
 	}
 
-	public GetSelectedBookServlet() {
-		super();
+    
+    public HomeServlet() {
+        super();       
+    }
 
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("HomeServlet");
+		List<Book> listBook;
 		try {
-			int id_user = Integer.parseInt(request.getParameter("id"));
-			List<String> listBook;
-			listBook = book_UserDAO.ShowSelectedBook(id_user);
+			listBook = bookDAO.listAllBooks();
 			request.setAttribute("listBook", listBook);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("ShowSelectedBook.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("Home.jsp");
 			dispatcher.forward(request, response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
+
 
 }
