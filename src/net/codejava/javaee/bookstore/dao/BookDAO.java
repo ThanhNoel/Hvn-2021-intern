@@ -1,4 +1,4 @@
-package net.codejava.javaee.bookstore.controller;
+package net.codejava.javaee.bookstore.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

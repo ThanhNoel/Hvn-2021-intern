@@ -1,4 +1,4 @@
-package net.codejava.javaee.bookstore.view;
+package net.codejava.javaee.bookstore.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.codejava.javaee.bookstore.controller.BookDAO;
+import net.codejava.javaee.bookstore.dao.BookDAO;
 import net.codejava.javaee.bookstore.model.Book;
 
 

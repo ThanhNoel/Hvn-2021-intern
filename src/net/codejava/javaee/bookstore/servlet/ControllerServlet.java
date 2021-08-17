@@ -1,4 +1,4 @@
-package net.codejava.javaee.bookstore.view;
+package net.codejava.javaee.bookstore.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import net.codejava.javaee.bookstore.controller.BookDAO;
-import net.codejava.javaee.bookstore.controller.UserDAO;
+import net.codejava.javaee.bookstore.dao.BookDAO;
+import net.codejava.javaee.bookstore.dao.UserDAO;
 import net.codejava.javaee.bookstore.model.Book;
 import net.codejava.javaee.bookstore.model.User;
 
@@ -112,6 +112,7 @@ public class ControllerServlet extends HttpServlet {
 		UserDAO userDao = new UserDAO();
 
 		User user = userDao.checkLogin(email, password);
+		System.out.println(user.getAge());
 		if (user.getRole().equals("reader")) {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);

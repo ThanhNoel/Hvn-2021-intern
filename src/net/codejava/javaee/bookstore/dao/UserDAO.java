@@ -1,4 +1,4 @@
-package net.codejava.javaee.bookstore.controller;
+package net.codejava.javaee.bookstore.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -28,7 +28,7 @@ public class UserDAO {
 		// TODO Auto-generated constructor stub
 	}
 
-	protected void connect() throws SQLException {
+	public void connect() throws SQLException {
 		if (jdbcConnection == null || jdbcConnection.isClosed()) {
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
@@ -144,7 +144,7 @@ public class UserDAO {
 		statement.close();
 
 		disconnect();
-
+        System.out.println(listUser.size());
 		return listUser;
 	}
 
@@ -206,42 +206,4 @@ public class UserDAO {
 		return user;
 	}
 	
-	//---------------------------------------------------
-	public User authenticateUser(User user) throws SQLException, ClassNotFoundException{
-		
-		String jdbcURL = "jdbc:mysql://localhost:3306/bookstore";
-		String jdbcUsername = "root";
-		String jdbcPassword = "030699";
-
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection Connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-		
-	
-		String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
-
-	   
-		PreparedStatement statement = Connection.prepareStatement(sql);
-		statement.setString(1, user.getEmail());
-		statement.setNString(2, user.getPassword());
-		ResultSet resultSet = statement.executeQuery();
-		
-
-		 if (resultSet.next()){
-		        
-		        User u = new User();
-		        u.setId(resultSet.getInt(0));
-		        u.setName(resultSet.getString(1));
-		        u.setEmail(resultSet.getString(2));
-		        u.setAge(resultSet.getInt(3));
-		        u.setDate(resultSet.getString(4));
-		        u.setPassword(resultSet.getString(5));
-		        u.setRole(resultSet.getString(6));
-		        
-		        return u;
-		 }
-		 
-		 resultSet.close();
-		 statement.close();
-		 return null;
-	}
 }
