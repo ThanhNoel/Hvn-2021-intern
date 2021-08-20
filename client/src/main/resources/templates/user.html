@@ -1,10 +1,72 @@
 <html>
-<head>
-	<title>User</title>
+	<head>
+		<title>USER</title>
+		<style>
+		ul {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			background-color: #191970;
+		}
+			
+		li {
+			float: left;
+		}
+			
+		li a {
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+			
+		li a:hover {
+			background-color: #A9A9A9;
+		}
+		
+		.button {
+			background-color: #D3D3D3;
+			border: 0.5;
+			color: white;
+			padding: 12px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 12px;
+			margin: 4px 2px;
+			cursor: pointer;
+			border-radius: 12px;
+		}
+		a:link{
+			text-decoration: none;
+			color: white;
+		}
+		table {
+		  	border-collapse: collapse;
+		  	width: 100%;
+		}
+		
+		th, td {
+		  	text-align: left;
+		  	padding: 8px;
+		}
+		
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+		
+	</style>
 </head>
 <body>
+<ul>
+	<li><a href="/home">Home</a></li>
+	<li><a href="/user">User</a></li>
+	<li><a href="/book">Book</a></li>
+</ul>
 	<h1>LIST USER</h1>
-	<a href="/user/adduser">ADD USER</a>
+	<button class = "button"><a href="/user/adduser">ADD USER</a></button>
 	<table border="1">
 		<thead>
 			<th>ID</th>
@@ -23,9 +85,9 @@
 				<td th:text= "${l.email}"></td>
 				<td th:text= "${l.age}"></td>
 				<td>
-					<a th:href="@{'/user/updateuser/'+${l.id}}">UPDATE</a>
-					<a th:href="@{'/user/listbookuser/'+${l.id}}">LIST BOOK</a>
-					<a th:href="@{'/user/addbookuser/'+${l.id}}">ADD BOOK</a>
+					<button class="button"><a th:href="@{'/user/updateuser/'+${l.id}}">UPDATE</a></button>
+					<button class="button"><a th:href="@{'/user/listbookuser/'+${l.id}}">LIST BOOK</a></button>
+					<button class="button"><a th:href="@{'/user/addbookuser/'+${l.id}}">ADD BOOK</a></button>
 				</td>
 			</tr>
 		</tbody>

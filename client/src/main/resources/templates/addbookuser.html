@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>ADD USER</title>
+		<title>ADD BOOK USER</title>
 		<style>
 		ul {
 			list-style-type: none;
@@ -55,12 +55,6 @@
 		tr:nth-child(even) {
 			background-color: #f2f2f2;
 		}
-		input {
-		 	width: 30%;
-		  	padding: 20px 20px;
-		  	margin: 8px 0;
-		  	box-sizing: border-box;
-		}
 	</style>
 </head>
 <body>
@@ -69,17 +63,29 @@
 	<li><a href="/user">User</a></li>
 	<li><a href="/book">Book</a></li>
 </ul>
-	<h1>ADD NEW USER</h1>
-		<form method="POST" th:object ="${user}">
-			<label>FirstName:</label><br>
-			<input type="text" th:field="*{firstName}"><br>
-			<label>Last Name:</label><br>
-			<input type="text" th:field="*{lastName}"><br>
-			<label>Email:</label><br>
-			<input type="text" th:field="*{email}"><br>
-			<label>DOB:</label><br>
-			<input type="date" th:field="*{dob}"><br>
-			<button class="button" type ="submit">OK</button>
-		</form>
+	<h1>LIST BOOK</h1>
+	<form th:action ="addbookuser" method="post" th:object="${books}">
+		<table border="1">
+			<thead>
+				<th>ID</th>
+				<th>Title</th>
+				<th>Author</th>
+				<th>Category</th>
+				<th></th>
+			</thead>
+			
+			<tbody>
+				<tr th:each="l:${books}">
+					<td th:text= "${l.id}"></td>
+					<td th:text= "${l.title}"></td>
+					<td th:text= "${l.author}"></td>
+					<td th:text= "${l.category}"></td>
+					<td>
+						<button class="button" type="submit" th:value="${l.id}" name="books_id">ADD</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
 </body>
 </html>

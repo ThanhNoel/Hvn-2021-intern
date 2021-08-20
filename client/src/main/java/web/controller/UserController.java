@@ -13,13 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
+import web.model.Book;
+import web.model.Ref;
 import web.model.User;
 
 @Controller
 @RequestMapping(path = "/user")
 public class UserController {
 	public RestTemplate rest = new RestTemplate();
-	
+	int tmp;
 	@GetMapping()
 	public String userList(Model model) {
 		List<User> list = Arrays.asList(rest.getForObject("http://localhost:8080/user", User[].class));
@@ -57,5 +59,26 @@ public class UserController {
 		rest.put("http://localhost:8080/user/{id}", user, user.getId());
 		return "redirect:/user";
 	}
-	
+	@GetMapping("/listbookuser/{id}")
+	public String listBookUser(@PathVariable("id") int user_id, Model model) {
+		List<Book> books = Arrays.asList(rest.getForObject("http://localhost:8080/booklist/{user_id}", Book[].class,user_id));
+		model.addAttribute("books", books);
+		return "/listbookuser";
+	}
+	@GetMapping("/addbookuser/{id}")
+	public String addBookUser(@PathVariable("id") int user_id, Model model) {
+		List<Book> books = Arrays.asList(rest.getForObject("http://localhost:8080/book", Book[].class));
+		model.addAttribute("books", books);
+		tmp = user_id;
+		return "/addbookuser";
+	}
+	@PostMapping("/addbookuser/{id}")
+	public String addBookUserProcess(@RequestParam("books_id") String books_id) {
+		System.out.println(tmp);
+		System.out.println(books_id);
+		int tmp2 = Integer.parseInt(books_id);
+		Ref ref = new Ref(tmp,tmp2);
+		rest.postForObject("http://localhost:8080/booklist", ref , Ref.class);
+		return "redirect:/user";
+	}
 }
