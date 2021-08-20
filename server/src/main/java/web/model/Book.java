@@ -3,19 +3,24 @@ package web.model;
 
 
 
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
 @Table(name = "book")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","user"})
 public class Book {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,8 +30,8 @@ public class Book {
 	@Size(max = 100)
 	private String author;
 	private String category;
-	@ManyToOne
-	private User user;
+	@ManyToMany
+	private Set<User> user;
 	
 	
 	public Book() {
@@ -64,10 +69,10 @@ public class Book {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public User getUser() {
+	public Set<User> getUser() {
 		return user;
 	}
-	public void setUser(User user) {
+	public void setUser(Set<User> user) {
 		this.user = user;
 	}
 	@Override

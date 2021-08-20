@@ -1,21 +1,25 @@
 package web.model;
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 @Entity
 @Table(name = "user")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","books"})
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,8 +34,8 @@ public class User {
 	@Min(1)
 	@Max(120)
 	private int age;
-	@OneToMany(mappedBy = "user")
-	private List<Book> books;
+	@ManyToMany(mappedBy = "user")
+	private Set<Book> books;
 	
 	public User() {
 		super();
@@ -97,11 +101,11 @@ public class User {
 		this.age = age;
 	}
 
-	public List<Book> getBooks() {
+	public Set<Book> getBooks() {
 		return books;
 	}
 
-	public void setBooks(List<Book> books) {
+	public void setBooks(Set<Book> books) {
 		this.books = books;
 	}
 

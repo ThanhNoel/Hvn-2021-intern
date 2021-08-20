@@ -3,6 +3,7 @@ package web.api;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import web.model.User;
 @RequestMapping(path = "/user",produces = "application/json")
 @CrossOrigin("*")
 public class UserController {
+	@Autowired
 	private UserRepository userRepo;
 	public UserController(UserRepository userRepo) {
 		this.userRepo = userRepo;
