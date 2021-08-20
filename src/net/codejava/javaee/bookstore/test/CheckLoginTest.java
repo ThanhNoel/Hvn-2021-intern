@@ -1,4 +1,4 @@
-package test;
+package net.codejava.javaee.bookstore.test;
 
 import static org.junit.Assert.assertEquals;
 

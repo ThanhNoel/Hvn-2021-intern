@@ -13,10 +13,10 @@ import net.codejava.javaee.bookstore.model.User;
 
 public class UserDAO {
 
-	private String jdbcURL;
-	private String jdbcUsername;
-	private String jdbcPassword; 
-	private Connection jdbcConnection;
+	public String jdbcURL;
+	public String jdbcUsername ;
+	public String jdbcPassword;
+    public Connection jdbcConnection;
 
 	public UserDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
 		this.jdbcURL = jdbcURL;
@@ -26,6 +26,10 @@ public class UserDAO {
 
 	public UserDAO() {
 		// TODO Auto-generated constructor stub
+//
+//		jdbcURL = "jdbc:mysql://localhost:3306/bookstore";
+//	jdbcUsername = "root";
+//		 jdbcPassword = "030699";
 	}
 
 	public void connect() throws SQLException {
@@ -35,11 +39,13 @@ public class UserDAO {
 			} catch (ClassNotFoundException e) {
 				throw new SQLException(e);
 			}
+			System.out.println("Running");
 			jdbcConnection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+			
 		}
 	}
 
-	protected void disconnect() throws SQLException {
+	public void disconnect() throws SQLException {
 		if (jdbcConnection != null && !jdbcConnection.isClosed()) {
 			jdbcConnection.close();
 		}
@@ -182,6 +188,7 @@ public class UserDAO {
 
 	public User getUser(int id) throws SQLException {
 		User user = null;
+		
 		String sql = "SELECT * FROM user WHERE user_id = ?";
 
 		connect();
