@@ -51,6 +51,17 @@
 			<li><a href="/home">Home</a></li>
 			<li><a href="/user">User</a></li>
 			<li><a href="/book">Book</a></li>
+			<li>
+				<div th:if="${session.name}">
+					<a><i class="fa fa-user" aria-hidden="true"></i><label th:text = "'Hello, '+ ${session.name}"></label></a>
+				</div>
+			</li>
+			<li><div th:if="${session.name}"><a href="/logout">Logout</a></div></li>
+			<li>
+				<div th:unless="${session.name}">
+					<a href="/login"><i class="fa fa-user" aria-hidden="true"></i>Login</a> 
+				</div>
+			</li>
 		</ul>
 	</body>
 </html>
